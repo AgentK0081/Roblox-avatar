@@ -3,7 +3,7 @@ const players = [
     callsign: "FED001",
     username: "HIM12345t",
     userID: 1898802876,
-    avatarUrl: "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=1898802876&size=48x48&format=Png&isCircular=false",
+    avatarUrl: "https://tr.rbxcdn.com/30DAY-AvatarHeadshot-2C3EFBE1A6FA7D5AD164100E3AC589DF-Png/48/48/AvatarHeadshot/Png/noFilter",
     rank: "Director",
     suspended: false
   },
