@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FBI TEAM ROBLOX – Live Player Directory</title>
+
+<style>
+:root {
+  --bg: #0b0b0b;
+  --panel: #141414;
+  --gold: #c9a23f;
+  --gold-soft: rgba(201,162,63,0.25);
+  --text: #ffffff;
+  --muted: #aaaaaa;
+  --accent: #ff0000;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, #111, #000);
+  color: var(--text);
+  font-family: "Segoe UI", Roboto, sans-serif;
+}
+
+/* TOP BAR */
+.topbar {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  padding: 18px;
+  background: linear-gradient(to bottom, #111, #070707);
+  border-bottom: 1px solid #222;
+}
+
+.topbar span {
+  color: var(--muted);
+  font-size: 16px;
+}
+
+.topbar .active {
+  color: var(--gold);
+  border-bottom: 3px solid var(--gold);
+  padding-bottom: 6px;
+}
+
+/* SEARCH */
+.search-bar {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 0 15px;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 14px 16px;
+  background: #1a1a1a;
+  border: none;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 15px;
+}
+
+/* MAIN */
+.container {
+  max-width: 1100px;
+  margin: 0 auto 50px;
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 20px;
+  padding: 0 15px;
+}
+
+/* PLAYER LIST */
+.player-list {
+  background: var(--panel);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.player {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px;
+  border-bottom: 1px solid #222;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.player:hover {
+  background: var(--gold-soft);
+}
+
+.player.selected {
+  background: linear-gradient(90deg, rgba(201,162,63,0.35), rgba(0,0,0,0));
+}
+
+.player-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  background: #333;
+  object-fit: cover;
+  display: block;
+}
+
+
+.player-name {
+  font-size: 18px;
+}
+
+.player-handle {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.team {
+  color: var(--muted);
+  font-size: 15px;
+}
+
+/* SIDE PANEL */
+.side-panel {
+  background: var(--panel);
+  border-radius: 14px;
+  padding: 18px;
+}
+
+.side-panel h3 {
+  margin-top: 0;
+  color: var(--gold);
+}
+
+.stat {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #222;
+  font-size: 14px;
+}
+
+footer {
+  text-align: center;
+  color: #666;
+  padding: 20px;
+  font-size: 13px;
+}
+
+  /* ================= DIVISIONS ================= */
+
+.division-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+.division-card {
+  position: relative;
+  height: 320px;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  background: #111;
+  transition: transform 0.3s ease;
+}
+
+.division-card:hover {
+  transform: translateY(-6px);
+}
+
+.division-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.9;
+}
+
+.division-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0.1));
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.division-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.division-sub {
+  font-size: 14px;
+  color: #ccc;
+}
+
+.join-box {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.25s;
+}
+
+.division-card.active .join-box {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.join-box button {
+  padding: 10px 26px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: linear-gradient(90deg, #d9b44a, #c49a2c);
+  color: black;
+}
+  
+@media(max-width: 900px) {
+  .container { grid-template-columns: 1fr; }
+}
+/* Mobile-only fix for player list scrolling */
+@media (max-width: 768px) {
+
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .player-list {
+    max-height: 55vh;       /* controls how tall the username list is */
+    overflow-y: auto;       /* enables scrolling */
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .side-panel {
+    margin-top: 10px;
+  }
+  }
+  
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span id="tabDivisions">Division</span>
+  <span id="tabPlayers" class="active">Players</span>
+  
+</div>
+
+
+<div class="search-bar">
+  <input id="search" placeholder="Search Players" />
+  <select id="rankFilter">
+    <option value="">All Ranks</option>
+    <option>Director</option>
+    <option>Deputy Director</option>
+    <option>Assistant Director</option>
+    <option>Assistant Director In-charge</option>
+    <option>Directors [Division]</option>
+    <option>Special Agent in Charge</option>
+    <option>Assistant Special Agent in Charge</option>
+    <option>Experienced Supervisory Special Agent</option>
+    <option>Supervisory Special Agent</option>
+    <option>Senior Special Agent</option>
+    <option>Experienced Special Agent</option>
+    <option>Special Agent</option>
+    <option>Probationary Special Agent</option>
+  </select>
+</div>
+
+  <div class="container" id="divisionsSection" style="display:none;">
+  <div class="division-grid" id="divisionGrid"></div>
+</div>
+
+  
+
+<div class="container" id="playersSection">
+
+  <div class="player-list" id="playerList"></div>
+
+  <div class="side-panel" id="infoPanel">
+  <h3>Player Stats</h3>
+  <div class="stat"><span>Callsign</span><span id="statCallsign">—</span></div>
+  <div class="stat"><span>Rank</span><span id="statRank">—</span></div>
+  <div class="stat"><span>Suspension</span><span id="statSuspended">—</span></div>
+</div>
+
+
+</div>
+
+<footer>© FBI TEAM ROBLOX – RP Interface</footer>
+
+<script src="members.js"></script>
+
+<script>
+const list = document.getElementById('playerList');
+const search = document.getElementById('search');
+const rankFilter = document.getElementById('rankFilter');
+
+const statCallsign = document.getElementById('statCallsign');
+const statRank = document.getElementById('statRank');
+const statSuspended = document.getElementById('statSuspended');
+
+  
+  
+function render() {
+  const query = search.value.toLowerCase();
+  const rank = rankFilter.value;
+
+  list.innerHTML = "";
+
+  players
+    .filter(p =>
+    (
+      p.username.toLowerCase().includes(query) ||
+      p.callsign.toLowerCase().includes(query)
+    ) &&
+    (!rank || p.rank === rank)
+  )
+    .forEach(p => {
+      const div = document.createElement('div');
+      div.className = 'player';
+
+      div.innerHTML = `
+        <div class="player-left">
+          <img class="avatar" src="https://tr.rbxcdn.com/0fbb3b8b3d5f1c8b5c7c0d6f6f7b9f5e/48/48/AvatarHeadshot/Png">
+          <div>
+            <div class="player-name">${p.username}</div>
+          </div>
+        </div>
+      `;
+
+      div.onclick = () => {
+        document.querySelectorAll('.player').forEach(x => x.classList.remove('selected'));
+        div.classList.add('selected');
+
+        statCallsign.textContent = p.callsign;
+        statRank.textContent = p.rank;
+        statSuspended.textContent = p.suspended ? "Yes" : "No";
+      };
+
+      list.appendChild(div);
+      const avatarImg = div.querySelector(".avatar");
+
+      
+
+    });
+}
+
+search.addEventListener('input', render);
+rankFilter.addEventListener('change', render);
+render();
+</script>
+  <script>
+const tabPlayers = document.getElementById("tabPlayers");
+const tabDivisions = document.getElementById("tabDivisions");
+const playersSection = document.getElementById("playersSection");
+const divisionsSection = document.getElementById("divisionsSection");
+
+tabPlayers.onclick = () => {
+  tabPlayers.classList.add("active");
+  tabDivisions.classList.remove("active");
+  playersSection.style.display = "grid";
+  divisionsSection.style.display = "none";
+};
+
+tabDivisions.onclick = () => {
+  tabDivisions.classList.add("active");
+  tabPlayers.classList.remove("active");
+  playersSection.style.display = "none";
+  divisionsSection.style.display = "grid";
+};
+  </script>
+  
+<script src="divisions.js"></script>
+
+<script>
+const divisionGrid = document.getElementById("divisionGrid");
+
+function renderDivisions() {
+  divisionGrid.innerHTML = "";
+
+  divisions.forEach(d => {
+    const card = document.createElement("div");
+    card.className = "division-card";
+
+    card.innerHTML = `
+      <img src="${d.image}">
+      <div class="division-overlay">
+        <div class="division-title">${d.name}</div>
+        <div class="division-sub">${d.subtitle}</div>
+      </div>
+      <div class="join-box">
+        <button onclick="window.open('${d.discord}', '_blank')">
+          Join Now
+        </button>
+      </div>
+    `;
+
+    card.onclick = () => {
+      document
+        .querySelectorAll(".division-card")
+        .forEach(c => c.classList.remove("active"));
+      card.classList.add("active");
+    };
+
+    divisionGrid.appendChild(card);
+  });
+}
+
+renderDivisions();
+</script>
+  
+
+</body>
+</html>
