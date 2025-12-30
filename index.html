@@ -322,25 +322,17 @@ function loadAvatar(img, userID) {
     return;
   }
 
-  fetch(
-    `https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${userID}&size=48x48&format=Png&isCircular=false`
-  )
+  fetch(`https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${userID}&size=48x48&format=Png&isCircular=false`)
     .then(res => res.json())
     .then(data => {
-      const thumb = data?.data?.[0];
-
-      // Roblox sometimes returns "Pending"
-      if (!thumb || thumb.state !== "Completed" || !thumb.imageUrl) {
-        img.src = "default-avatar.png";
-        return;
-      }
-
-      img.src = thumb.imageUrl;
+      const url = data?.data?.[0]?.imageUrl;
+      img.src = url || "default-avatar.png";
     })
     .catch(() => {
       img.src = "default-avatar.png";
     });
 }
+
   
   
 function render() {
