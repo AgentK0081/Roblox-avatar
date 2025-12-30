@@ -329,7 +329,8 @@ function loadAvatar(img, userID) {
       img.src = url || "default-avatar.png";
     })
     .catch(() => {
-      img.src = "default-avatar.png";
+      avatarImg.src = p.avatarUrl || "default-avatar.png";
+      
     });
 }
 
