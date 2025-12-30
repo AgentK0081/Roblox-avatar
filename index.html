@@ -316,24 +316,6 @@ const statCallsign = document.getElementById('statCallsign');
 const statRank = document.getElementById('statRank');
 const statSuspended = document.getElementById('statSuspended');
 
-function loadAvatar(img, userID) {
-  if (!userID || userID === 1) {
-    img.src = "default-avatar.png";
-    return;
-  }
-
-  fetch(`https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${userID}&size=48x48&format=Png&isCircular=false`)
-    .then(res => res.json())
-    .then(data => {
-      const url = data?.data?.[0]?.imageUrl;
-      img.src = url || "default-avatar.png";
-    })
-    .catch(() => {
-      avatarImg.src = p.avatarUrl || "default-avatar.png";
-      
-    });
-}
-
   
   
 function render() {
@@ -344,19 +326,19 @@ function render() {
 
   players
     .filter(p =>
-    (
-      p.username.toLowerCase().includes(query) ||
-      p.callsign.toLowerCase().includes(query)
-    ) &&
-    (!rank || p.rank === rank)
-  )
+      (
+        p.username.toLowerCase().includes(query) ||
+        p.callsign.toLowerCase().includes(query)
+      ) &&
+      (!rank || p.rank === rank)
+    )
     .forEach(p => {
-      const div = document.createElement('div');
-      div.className = 'player';
+      const div = document.createElement("div");
+      div.className = "player";
 
       div.innerHTML = `
         <div class="player-left">
-          <img class="avatar" src="https://tr.rbxcdn.com/0fbb3b8b3d5f1c8b5c7c0d6f6f7b9f5e/48/48/AvatarHeadshot/Png">
+          <img class="avatar" src="default-avatar.png" loading="lazy">
           <div>
             <div class="player-name">${p.username}</div>
           </div>
@@ -364,8 +346,8 @@ function render() {
       `;
 
       div.onclick = () => {
-        document.querySelectorAll('.player').forEach(x => x.classList.remove('selected'));
-        div.classList.add('selected');
+        document.querySelectorAll(".player").forEach(x => x.classList.remove("selected"));
+        div.classList.add("selected");
 
         statCallsign.textContent = p.callsign;
         statRank.textContent = p.rank;
@@ -373,18 +355,23 @@ function render() {
       };
 
       list.appendChild(div);
-const avatarImg = div.querySelector(".avatar");
-loadAvatar(avatarImg, p.userID);
-      
 
+      /** ✅ SET ROBLOX AVATAR */
+      if (p.userID && Number.isInteger(p.userID)) {
+        const avatarImg = div.querySelector(".avatar");
+        avatarImg.src =
+          `https://thumbnails.roblox.com/v1/users/avatar-headshot` +
+          `?userIds=${p.userID}&size=48x48&format=Png&isCircular=false`;
+      }
     });
 }
 
-search.addEventListener('input', render);
-rankFilter.addEventListener('change', render);
+search.addEventListener("input", render);
+rankFilter.addEventListener("change", render);
 render();
-</script>
-  <script>
+
+  
+
 const tabPlayers = document.getElementById("tabPlayers");
 const tabDivisions = document.getElementById("tabDivisions");
 const playersSection = document.getElementById("playersSection");
