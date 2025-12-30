@@ -327,8 +327,15 @@ function loadAvatar(img, userID) {
   )
     .then(res => res.json())
     .then(data => {
-      const imageUrl = data?.data?.[0]?.imageUrl;
-      img.src = imageUrl || "default-avatar.png";
+      const thumb = data?.data?.[0];
+
+      // Roblox sometimes returns "Pending"
+      if (!thumb || thumb.state !== "Completed" || !thumb.imageUrl) {
+        img.src = "default-avatar.png";
+        return;
+      }
+
+      img.src = thumb.imageUrl;
     })
     .catch(() => {
       img.src = "default-avatar.png";
@@ -373,9 +380,8 @@ function render() {
       };
 
       list.appendChild(div);
-      const avatarImg = div.querySelector(".avatar");
+const avatarImg = div.querySelector(".avatar");
 loadAvatar(avatarImg, p.userID);
-      
       
 
     });
