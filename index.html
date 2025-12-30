@@ -316,6 +316,24 @@ const statCallsign = document.getElementById('statCallsign');
 const statRank = document.getElementById('statRank');
 const statSuspended = document.getElementById('statSuspended');
 
+function loadAvatar(img, userID) {
+  if (!userID || userID === 1) {
+    img.src = "default-avatar.png";
+    return;
+  }
+
+  fetch(
+    `https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${userID}&size=48x48&format=Png&isCircular=false`
+  )
+    .then(res => res.json())
+    .then(data => {
+      const imageUrl = data?.data?.[0]?.imageUrl;
+      img.src = imageUrl || "default-avatar.png";
+    })
+    .catch(() => {
+      img.src = "default-avatar.png";
+    });
+}
   
   
 function render() {
@@ -356,7 +374,8 @@ function render() {
 
       list.appendChild(div);
       const avatarImg = div.querySelector(".avatar");
-
+loadAvatar(avatarImg, p.userID);
+      
       
 
     });
