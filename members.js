@@ -11,7 +11,7 @@ const players = [
     callsign: "FED002",
     username: "AgentK_0081",
     userID: 3322338586,
-    avatarUrl: "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=3322338586&size=48x48&format=Png&isCircular=false",
+    avatarUrl: "https://tr.rbxcdn.com/30DAY-AvatarHeadshot-AD661737FF859C1369202BE76EEE123A-Png/48/48/AvatarHeadshot/Png/noFilter",
     rank: "Deputy Director",
     suspended: false
   },
@@ -19,7 +19,7 @@ const players = [
     callsign: "FED003",
     username: "foohm123",
     userID: 2437948503,
-    avatarUrl: "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=2437948503&size=48x48&format=Png&isCircular=false",
+    avatarUrl: "https://tr.rbxcdn.com/30DAY-AvatarHeadshot-6958F1E97CC4218B52EAB2C137762A5A-Png/48/48/AvatarHeadshot/Png/noFilter",
     rank: "Assistant Director",
     suspended: false
   },
