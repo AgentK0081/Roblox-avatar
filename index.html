@@ -359,14 +359,7 @@ function render() {
       /** ✅ SET ROBLOX AVATAR */
       if (p.userID && Number.isInteger(p.userID)) {
         const avatarImg = div.querySelector(".avatar");
-        avatarImg.src =
-  p.userID && p.userID !== 1
-    ? `https://tr.rbxcdn.com/0/AvatarHeadshot/Png?userId=${p.userID}&width=48&height=48`
-    : "default-avatar.png";
-
-avatarImg.onerror = () => {
-  avatarImg.src = "default-avatar.png";
-};
+        avatarImg.src = p.avatarUrl || "default-avatar.png";
 
 
       }
