@@ -275,7 +275,7 @@ footer {
 </div>
 
 
-<div class="search-bar">
+<div class="search-bar" id="searchSection">
   <input id="search" placeholder="Search Players" />
   <select id="rankFilter">
     <option value="">All Ranks</option>
@@ -389,20 +389,26 @@ const tabPlayers = document.getElementById("tabPlayers");
 const tabDivisions = document.getElementById("tabDivisions");
 const playersSection = document.getElementById("playersSection");
 const divisionsSection = document.getElementById("divisionsSection");
+const searchSection = document.getElementById("searchSection");
 
 tabPlayers.onclick = () => {
   tabPlayers.classList.add("active");
   tabDivisions.classList.remove("active");
+
   playersSection.style.display = "grid";
   divisionsSection.style.display = "none";
+  searchSection.style.display = "block"; // ✅ SHOW search
 };
 
 tabDivisions.onclick = () => {
   tabDivisions.classList.add("active");
   tabPlayers.classList.remove("active");
+
   playersSection.style.display = "none";
   divisionsSection.style.display = "grid";
+  searchSection.style.display = "none"; // ❌ HIDE search
 };
+
   </script>
   
 <script src="divisions.js"></script>
